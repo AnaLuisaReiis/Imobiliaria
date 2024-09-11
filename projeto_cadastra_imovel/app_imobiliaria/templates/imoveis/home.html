@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: 'Arial', sans-serif;
+      }
+
+      .navbar {
+        background-color: #4CAF50;
+        color: white;
+      }
+
+      .navbar .navbar-brand {
+        color: white;
+        font-weight: bold;
+      }
+
+      .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #4CAF50;
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        color: #333;
+        font-weight: bold;
+      }
+
+      .form-control, .form-select {
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+      }
+
+      button {
+        background-color: #4CAF50;
+        border-color: #4CAF50;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      .form-text {
+        color: #6c757d;
+        font-size: 0.9em;
+      }
+
+      footer {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 0.9em;
+        color: #777;
+      }
+    </style>
+
+    <title>Cadastro de Imóveis</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-light">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Cadastro de Imóveis</span>
+      </div>
+    </nav>
+    <form action="{% url 'listagem_imoveis' %}" method="post" enctype="multipart/form-data"> 
+        {% csrf_token %}
+    <!-- Formulário de Cadastro -->
+    <div class="container mt-5">
+      <h2>Cadastro de Casas e Apartamentos</h2>
+      <form>
+        <!-- Tipo de Imóvel -->
+        <div class="mb-3">
+          <label for="propertyType" class="form-label">Tipo de Imóvel</label>
+          <select class="form-select" id="propertyType" name = "tipo_imovel" required onchange="toggleFields()">
+            <option value="" selected disabled>Selecione o tipo de imóvel</option>
+            <option value="casa">Casa</option>
+            <option value="apartamento">Apartamento</option>
+          </select>
+          <div class="form-text">Selecione o tipo de imóvel que deseja cadastrar.</div>
+        </div>
+
+        <!-- Campos Comuns -->
+        <div class="mb-3">
+          <label for="ownerName" class="form-label">Nome do Proprietário</label>
+          <input name="nome_proprietario" type="text" class="form-control" id="ownerName" placeholder="Digite o nome do proprietário" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label">Endereço</label>
+          <input name = "endereco" type="text" class="form-control" id="address" placeholder="Digite o endereço do imóvel" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="rooms" class="form-label">Quantidade de Quartos</label>
+          <input name = "quantidade_quartos" type="number" class="form-control" id="rooms" placeholder="Número de quartos" min="1" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="suites" class="form-label">Quantidade de Suítes</label>
+          <input name = "quantidade_suites" type="number" class="form-control" id="suites" placeholder="Número de suítes" min="0" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="livingRooms" class="form-label">Quantidade de Salas de Estar</label>
+          <input name = "quantidade_salas_estar" type="number" class="form-control" id="livingRooms" placeholder="Número de salas de estar" min="1" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="garage" class="form-label">Número de Vagas na Garagem</label>
+          <input name = "vagas_garagem" type="number" class="form-control" id="garage" placeholder="Número de vagas na garagem" min="0" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="area" class="form-label">Área do Imóvel (m²)</label>
+          <input name = "area" type="number" class="form-control" id="area" placeholder="Área em metros quadrados" min="1" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="wardrobe" class="form-label">Possui Armário Embutido?</label>
+          <select class="form-select" id="wardrobe" required>
+            <option name = "armario_embutido" value="" selected disabled>Selecione</option>
+            <option value="sim">Sim</option>
+            <option value="não">Não</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Descrição</label>
+          <textarea name = "descricao" class="form-control" id="description" rows="3" placeholder="Adicione algum detalhe sobre o imóvel"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="propertyImage" class="form-label">Imagem do Imóvel</label>
+          <input name="imagem_imovel" type="file" class="form-control" id="propertyImage" accept="image/*">
+          <div class="form-text">Selecione uma imagem para o imóvel (formatos aceitos: jpg, png, jpeg).</div>
+        </div>
+
+        <!-- Campos Específicos para Apartamento -->
+        <div id="apartamentoFields" class="d-none">
+          <div class="mb-3">
+            <label for="diningRooms" class="form-label">Quantidade de Salas de Jantar</label>
+            <input name="quantidade_salas_jantar" type="number" class="form-control" id="diningRooms" placeholder="Número de salas de jantar" min="0">
+          </div>
+
+          <div class="mb-3">
+            <label for="floor" class="form-label">Andar</label>
+            <input name="andar" type="number" class="form-control" id="floor" placeholder="Andar do apartamento" min="0">
+          </div>
+
+          <div class="mb-3">
+            <label for="condoFee" class="form-label">Valor do Condomínio (R$)</label>
+            <input name = "valor_condominio" type="number" class="form-control" id="condoFee" placeholder="Digite o valor do condomínio" min="0" step="0.01">
+          </div>
+
+          <div class="mb-3">
+            <label for="portaria" class="form-label">Condomínio com Portaria 24h?</label>
+            <select name = "portaria_24h" class="form-select" id="portaria">
+              <option value="" selected disabled>Selecione</option>
+              <option value="sim">Sim</option>
+              <option value="não">Não</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Botão de Enviar -->
+        <button type="submit" class="btn btn-primary">Cadastrar Imóvel</button>
+      </form>
+    </div>
+</form>
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2024 Cadastro de Imóveis</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Script para alternar os campos -->
+    <script>
+      function toggleFields() {
+        var propertyType = document.getElementById('propertyType').value;
+        var casaFields = document.getElementById('casaFields');
+        var apartamentoFields = document.getElementById('apartamentoFields');
+
+        if (propertyType === 'casa') {
+          casaFields.classList.remove('d-none');
+          apartamentoFields.classList.add('d-none');
+        } else if (propertyType === 'apartamento') {
+          apartamentoFields.classList.remove('d-none');
+          casaFields.classList.add('d-none');
+        } else {
+          casaFields.classList.add('d-none');
+          apartamentoFields.classList.add('d-none');
+        }
+      }
+    </script>
+  </body>
+</html>
