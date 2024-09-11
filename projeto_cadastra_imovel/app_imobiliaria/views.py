@@ -7,6 +7,9 @@ from .models import Imovel,Apartamento,Casa,Visita
 def home(request):
     return render(request,'imoveis/home.html')
 
+def lista_imoveis(request):
+    return render(request,'imoveis/imoveis.html')
+
 def imoveis(request):
     
     if request.method == 'POST':
