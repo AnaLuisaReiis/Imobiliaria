@@ -75,7 +75,10 @@
     <!-- Navbar -->
     <nav class="navbar navbar-light">
       <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">Cadastro de Imóveis</span>
+        <a class="navbar-brand mb-0 h1" href="{% url 'lista_imoveis' %}" >Home</a>
+        <a class="navbar-brand mb-0 h1" href="{% url 'home' %}"> Cadastro de Imóveis</a>  
+        <a class="navbar-brand mb-0 h1" href="{% url 'cadastro_visitas' %}"> Cadastro de Visitas</a>
+        <a class="navbar-brand mb-0 h1" href = "{% url 'lista_visitas' %}"> Listagem de Visitas</a> 
       </div>
     </nav>
     <form action="{% url 'listagem_imoveis' %}" method="post" enctype="multipart/form-data"> 
