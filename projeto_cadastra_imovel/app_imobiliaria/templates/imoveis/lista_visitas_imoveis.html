@@ -79,7 +79,69 @@
       </div>
     </nav>
     <div class="container mt-5">
+      <img src="{{imovel.imagem_imovel.url }}" alt="Imagem do Imóvel" style="width: 400px; height: auto;float: right;">
+      <div style="display:flex; flex-direction: column;flex-wrap: wrap; gap: 7px; height: 210px;">
+        <div>
+          <label><b>Tipo de Imovel:</b></label>
+          <span>{{imovel.tipo_imovel}}</span>
+        </div>
+        <div>
+          <label><b>Bairro: </b></label>
+          <span>{{imovel.bairro}}</span>
+        </div>
+        <div>
+          <label><b>Quartos:</b></label>
+          <span>{{imovel.quantidade_quartos}}</span>
+        </div>
+        <div>
+          <label><b>Vagas:</b></label>
+          <span>{{imovel.vagas_garagem}}</span>
+        </div>
+        <div>
+          <label><b>Tamanho: </b></label>
+          <span>{{imovel.area}}m²</span>
+        </div>
+        <div>
+          <label><b>Aluguel: </b></label>
+          <span>R${{imovel.valor_imovel}}</span>
+        </div>
+        <div>
+          <label><b>Armario Embutido: </b></label>
+          {% if imovel.armario_embutido %}
+          <span>Sim</span>
+          {% else %}
+          <span>Não</span>
+          {% endif %}
+        </div>
+        {% if imovel.tipo_imovel == 'apartamento' %}
+        <div>
+          <label><b>Andar:</b></label>
+          <span>{{imovel.andar}}</span>
+        </div>
+        <div>
+          <label><b>Condomínio: </b></label>
+          <span>R${{imovel.valor_condominio}}</span>
+        </div>
+        <div>
+          <label><b>Portaria 24h: </b></label>
+          {% if imovel.portaria %}
+          <span>Sim</span>
+          {% else %}
+          <span>Não</span>
+          {% endif %}
+        </div>
+        {% endif %}
+
+    
+        
+    </div>
+
+      
+
       <h2>Lista de Visitas Agendadas</h2>
+      
+      
+
       <table class="table table-striped">
         <thead>
           <tr>

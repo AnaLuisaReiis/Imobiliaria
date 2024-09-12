@@ -102,16 +102,15 @@
     ">
         {% for imovel in imoveis %}
         {% if imovel.imagem_imovel %}
-        <a style="text-decoration:none; color:black;" href ="{% url 'cadastro_visitas' %}">       
+        <a style="text-decoration:none; color:black;" href ="{% url 'imovel_detalhes' imovel.id_imovel %}">       
         <div class="flex-container">
           <div class="endereco">{{ imovel.endereco }}</div> 
-          <div>
-            <a href="{% url 'imovel_detalhes' imovel.id_imovel %}">
-            <img src="{{ imovel.imagem_imovel.url }}" alt="Imagem do Imóvel" style="width: auto; height: auto;">
-            </a>
-          </div>
-          <div>{{ imovel.descricao }}</div>
-        </div> 
+            <div>
+              <img src="{{ imovel.imagem_imovel.url }}" alt="Imagem do Imóvel" style="width: auto; height: auto;">
+            </div>
+            <div style="text-align: center;font-size: 19px;"
+    >{{ imovel.descricao }}</div>
+          </div> 
         </a>
         {% endif %}
         {% endfor %}
