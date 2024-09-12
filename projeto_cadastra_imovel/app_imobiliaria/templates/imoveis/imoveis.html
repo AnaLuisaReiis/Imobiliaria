@@ -13,6 +13,11 @@
           background-color: #f8f9fa;
           font-family: 'Arial', sans-serif;
         }
+        .mt-5{
+          max-width: 84%!important; 
+          width:100%!important;
+
+        }
   
         .navbar {
           background-color: #4CAF50;
@@ -39,6 +44,12 @@
         .form-label {
           color: #333;
           font-weight: bold;
+        }
+        .endereco{
+          text-align: center;
+          font-weight: bold;
+          text-transform: uppercase;
+          font-family: serif;
         }
   
         .form-control, .form-select {
@@ -80,22 +91,25 @@
     </div>
   </nav>
   <div class="container mt-5">
-    <h2>Listagem de Imóveis</h2>
-    <div style="display: flex;
-    gap: 16px;
-    flex-direction: row;
-    flex-wrap: wrap;
+    <h2 style="text-align: center;">Listagem de Imóveis</h2>
+    <div 
+    style="display: flex;
+      gap: 16px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      overflow: auto;
+      justify-content: space-evenly;
     ">
         {% for imovel in imoveis %}
-        <div>{{ imovel.endereco }}</div> 
-        <div>
-          {% if imovel.imagem_imovel %}
-          <img src="{{ imovel.imagem_imovel.url }}" alt="Imagem do Imóvel" style="width: 500px; height: auto;">
-          {% else %}
-          Nenhuma imagem
-          {% endif %}
-        </div>
-        <div>{{ imovel.descricao }}</div>
+        {% if imovel.imagem_imovel %}
+      <div class="flex-container">
+          <div class="endereco">{{ imovel.endereco }}</div> 
+          <div>
+            <img src="{{ imovel.imagem_imovel.url }}" alt="Imagem do Imóvel" style="width: auto; height: auto;">
+          </div>
+          <div>{{ imovel.descricao }}</div>
+        </div> 
+        {% endif %}
         {% endfor %}
       </div>
   </div>
