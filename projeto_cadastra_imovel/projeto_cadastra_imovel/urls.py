@@ -11,4 +11,7 @@ urlpatterns = [
     path('filtrar_imoveis/', views.filtrar_imoveis, name='filtrar_imoveis'),
     path('lista_visitas/', lista_visitas, name='lista_visitas'),
     path('lista_imoveis/', lista_imoveis, name='lista_imoveis'),
+    path('imovel/<int:id_imovel>/', views.imovel_detalhes, name='imovel_detalhes'),
+    
+    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

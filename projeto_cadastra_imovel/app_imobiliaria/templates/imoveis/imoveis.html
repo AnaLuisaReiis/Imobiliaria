@@ -106,7 +106,9 @@
         <div class="flex-container">
           <div class="endereco">{{ imovel.endereco }}</div> 
           <div>
+            <a href="{% url 'imovel_detalhes' imovel.id_imovel %}">
             <img src="{{ imovel.imagem_imovel.url }}" alt="Imagem do Imóvel" style="width: auto; height: auto;">
+            </a>
           </div>
           <div>{{ imovel.descricao }}</div>
         </div> 

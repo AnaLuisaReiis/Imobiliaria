@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import JsonResponse
 from django.db import connection
 from .models import Visita
@@ -13,7 +13,14 @@ def lista_imoveis(request):
         'imoveis': imoveis
      }
      return render(request, 'imoveis/imoveis.html', context)
-   
+
+def imovel_detalhes(request,id_imovel):
+    imovel = get_object_or_404(Imovel, pk=id_imovel)
+    visitas = Visita.objects.filter(imovel=imovel)
+    
+    return render(request, 'imoveis/lista_visitas_imoveis.html', {'imovel': imovel, 'visitas': visitas})
+
+
 
 def imoveis(request):
     
