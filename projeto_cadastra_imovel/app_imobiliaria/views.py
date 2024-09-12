@@ -8,7 +8,12 @@ def home(request):
     return render(request,'imoveis/home.html')
 
 def lista_imoveis(request):
-    return render(request,'imoveis/imoveis.html')
+     imoveis = Imovel.objects.all()
+     context = {
+        'imoveis': imoveis
+     }
+     return render(request, 'imoveis/imoveis.html', context)
+   
 
 def imoveis(request):
     
@@ -25,6 +30,7 @@ def imoveis(request):
             quantidade_salas_estar=request.POST.get('quantidade_salas_estar'),
             vagas_garagem=request.POST.get('vagas_garagem'),
             area=request.POST.get('area'),
+            valor_imovel = request.POST.get('valor_imovel'),
             armario_embutido=request.POST.get('armario_embutido') == 'sim',  # Exemplo para BooleanField
             descricao=request.POST.get('descricao', ''),
             imagem_imovel=request.FILES.get('imagem_imovel')

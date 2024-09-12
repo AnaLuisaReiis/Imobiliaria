@@ -18,6 +18,7 @@ class Imovel(models.Model):
     area = models.DecimalField(max_digits=8, decimal_places=2)  
     armario_embutido = models.BooleanField()
     descricao = models.TextField(blank=True, null=True)
+    valor_imovel = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     imagem_imovel = models.ImageField(upload_to='img/%Y/%m/%d/', blank=True, null=True)
 
     # Atributos específicos para casa
