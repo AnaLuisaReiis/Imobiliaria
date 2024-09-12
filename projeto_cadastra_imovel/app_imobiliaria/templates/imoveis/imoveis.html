@@ -87,7 +87,7 @@
       <a class="navbar-brand mb-0 h1" href="{% url 'lista_imoveis' %}" >Home</a>
       <a class="navbar-brand mb-0 h1" href="{% url 'home' %}"> Cadastro de Imóveis</a>  
       <a class="navbar-brand mb-0 h1" href="{% url 'cadastro_visitas' %}"> Cadastro de Visitas</a>
-      <a class="navbar-brand mb-0 h1" href = "{% url 'lista_visitas' %}"> Listagem de Visitas</a> 
+      <a class="navbar-brand mb-0 h1" href ="{% url 'lista_visitas' %}"> Listagem de Visitas</a> 
     </div>
   </nav>
   <div class="container mt-5">
@@ -102,13 +102,15 @@
     ">
         {% for imovel in imoveis %}
         {% if imovel.imagem_imovel %}
-      <div class="flex-container">
+        <a style="text-decoration:none; color:black;" href ="{% url 'cadastro_visitas' %}">       
+        <div class="flex-container">
           <div class="endereco">{{ imovel.endereco }}</div> 
           <div>
             <img src="{{ imovel.imagem_imovel.url }}" alt="Imagem do Imóvel" style="width: auto; height: auto;">
           </div>
           <div>{{ imovel.descricao }}</div>
         </div> 
+        </a>
         {% endif %}
         {% endfor %}
       </div>
